@@ -1,4 +1,6 @@
 #pragma once
+#include <fstream>
+#include "AccountData.h"
 
 namespace Bnk {
 
@@ -9,21 +11,27 @@ public:
 
     ~Account(); // Closes account file, frees resources
 
-    void login(char password[8]); // Call this to log into account using specified password
+    void login(char password[8]); // Call this->to log into account using specified password
 
-    void withdraw(int amount); // Call this to withdraw specified amount of cash
+    void logout(); // Call this->to log out of this->account
 
-    void deposit(int amount); // Call this to deposit specified amount of cash
+    void setPassword(std::string newPassword); // Sets new password
 
-    long getCash(); // Returns this.cashAmount
+    void withdraw(int amount); // Call this->to withdraw specified amount of cash
 
-    const char id[8]; // This account's unique ID. Assigned in constructor
+    void deposit(int amount); // Call this->to deposit specified amount of cash
+
+    long getCash(); // Returns this->cashAmount
+
+    std::string id; // This account's unique ID. Assigned in constructor. Always 8 chars.
 
 private:
 
-    bool loggedIn; // True = user currently logged into this account
+    bool loggedIn; // True = user currently logged into this->account
 
-    long cashAmount; // Amount of cash this account has
+    std::fstream accFile; // Stream object for this->account's file
+
+    AccountData_t *accData; // Pointer to this account's data
 
 };
 
